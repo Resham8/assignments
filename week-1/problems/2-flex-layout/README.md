@@ -1,4 +1,3 @@
-
 Create a simple layout where you see div with red color on the left and blue color on the right.
 The right grid should be twice as wide as the left one.
 
