@@ -6,7 +6,19 @@
 */
 
 function countVowels(str) {
-    // Your code here
+    const ch = str.toLowerCase();
+    const arr = ['a', 'e', 'i', 'o', 'u'];
+    let count = 0;
+
+    for(let char of ch){
+    if(arr.includes(char)){
+      count++;
+    }}
+
+    return count;
 }
+
+console.log(countVowels('arduras'));
+
 
 module.exports = countVowels;
