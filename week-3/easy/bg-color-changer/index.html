@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bg Color Changer</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        #bg {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        #bg p {
+            font-size: 2rem;
+            color: black;
+        }
+
+        #button-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="button-container" >
+        <button id="red">Red</button>
+        <button id="yellow">Yellow</button>
+        <button id="black">Black</button>
+        <button id="purple">Purple</button>
+        <button id="green">Green</button>
+        <button id="blue">Blue</button>
+        <button id="sup">Surprise Me</button>
+    </div>
+    <div id="bg">
+        <p>Click a button to change the background!</p>
+    </div>
+
+    <script>
+        const colors = {
+            red: "red",
+            yellow: "yellow",
+            black: "black",
+            purple: "purple",
+            green: "green",
+            blue: "blue"
+        };
+
+        const bgDiv = document.getElementById("bg");
+        const bgText = bgDiv.querySelector("p");
+        const buttons = document.querySelectorAll("#button-container button");
+
+        buttons.forEach(button => {
+            const btnColorId = button.id;
+
+            if(colors[btnColorId]){
+                button.style.backgroundColor = colors[btnColorId];
+
+                if (btnColorId === "black") {
+                    button.style.color = "white"; 
+                }
+            } else if(btnColorId === "sup"){
+                button.style.backgroundColor = "#6c757d"; 
+                button.style.color = "white"; 
+            }
+        })
+
+        document.addEventListener("click", function(event) {
+            const btnId = event.target.id;
+            
+            if (colors[btnId]) {
+                bgDiv.style.backgroundColor = colors[btnId];
+                 
+                 if (btnId === "black") {
+                    bgText.style.color = "white"; 
+                } else {
+                    bgText.style.color = "black"; 
+                }
+
+            } else if (btnId === "sup") {
+                const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                bgDiv.style.backgroundColor = randomColor;
+            }
+        });
+    </script>
+</body>
+</html>
