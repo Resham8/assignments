@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pokemon Cards</h1>
+        <div class="controls">
+          <div class="details">
+            <label for="cards">Number of Cards</label>    
+            <input type="number" name="cards" id="cards" min="1" max="10" value="3">
+            
+            <select name="category" id="categories">
+              <option value="">All Types</option>
+            </select>
+          </div>
+          <button id="newPokemon" class="generate-btn">Generate Pokemon</button>
+        </div>
+        <div id="cardContainer" class="card-container"></div>
+      </div>
+    <script src="script.js"></script>
+</body>
+</html>
