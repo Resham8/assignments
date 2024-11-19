@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  color: #b9e4ff;
+  margin-bottom: 2rem;
+  font-size: 3rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.controls {
+  margin-bottom: 2rem;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.details label {
+  color: #fff;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.detials input {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.detials select {
+  margin-left: 50px;
+  padding: 10px 30px;
+  border-radius: 8px;
+}
+
+.details input,
+.details select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.details input {
+  width: 80px;
+  text-align: center;
+}
+
+.details select {
+  width: 150px;
+  cursor: pointer;
+}
+
+.details input:focus,
+.details select:focus {
+  border-color: #b9e4ff;
+  box-shadow: 0 0 10px rgba(185, 228, 255, 0.3);
+}
+
+.details option {
+  background: #2a2a2a;
+  color: white;
+}
+
+.generate-btn {
+  background: linear-gradient(45deg, #ff3d3d, #ff8b3d);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 61, 61, 0.3);
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 61, 61, 0.4);
+}
