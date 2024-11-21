@@ -1,3 +1,24 @@
+:root {
+  --grass: #78c850;
+  --fire: #f08030;
+  --water: #6890f0;
+  --electric: #f8d030;
+  --psychic: #f85888;
+  --normal: #a8a878;
+  --ground: #e0c068;
+  --flying: #a890f0;
+  --fairy: #ee99ac;
+  --bug: #a8b820;
+  --fighting: #c03028;
+  --poison: #a040a0;
+  --rock: #b8a038;
+  --ghost: #705898;
+  --ice: #98d8d8;
+  --dragon: #7038f8;
+  --dark: #705848;
+  --steel: #b8b8d0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -102,4 +123,137 @@ h1 {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 61, 61, 0.4);
 }
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.pokemon-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: cardAppear 0.5s ease-out;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.pokemon-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  z-index: 0;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.pokemon-image {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.pokemon-name {
+  color: #fff;
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.pokemon-types {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.type-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.stat-name {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.abilities {
+  margin-top: 1.5rem;
+  color: white;
+}
+
+.ability {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin: 0.5rem;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.locations {
+  margin-top: 1.5rem;
+  color: white;
+}
+
+.locations-title {
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.location {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin: 0.3rem;
+  display: inline-block;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
