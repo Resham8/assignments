@@ -23,7 +23,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -61,17 +61,6 @@ h1 {
   color: #fff;
   font-size: 1.2rem;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.detials input {
-  border-radius: 8px;
-  padding: 10px 20px;
-}
-
-.detials select {
-  margin-left: 50px;
-  padding: 10px 30px;
-  border-radius: 8px;
 }
 
 .details input,
@@ -142,118 +131,164 @@ h1 {
   animation: cardAppear 0.5s ease-out;
 }
 
+.pokemon-card.loading {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ff3d3d;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .pokemon-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.pokemon-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.05)
-  );
-  z-index: 0;
+.pokemon-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.card-content {
-  position: relative;
-  z-index: 1;
-}
-
-.pokemon-image {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 1rem;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+.pokemon-id {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .pokemon-name {
   color: #fff;
   font-size: 2rem;
   text-transform: capitalize;
-  margin-bottom: 1rem;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.pokemon-image-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1.5rem;
+}
+
+.pokemon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 .pokemon-types {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.8rem;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .type-badge {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 50px;
   color: white;
   font-weight: bold;
   text-transform: capitalize;
   font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 1.5rem;
+.pokemon-stats {
+  margin: 1.5rem 0;
 }
 
-.stat {
+.stat-bar {
+  margin-bottom: 0.8rem;
+}
+
+.stat-label {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+}
+
+.stat-bar-bg {
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem;
-  border-radius: 10px;
-  color: white;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.stat-name {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  text-transform: uppercase;
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease-out;
 }
 
-.stat-value {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.abilities {
+.pokemon-abilities {
   margin-top: 1.5rem;
+}
+
+.pokemon-abilities h3,
+.pokemon-locations h3 {
   color: white;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.abilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 .ability {
   background: rgba(255, 255, 255, 0.1);
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  margin: 0.5rem;
-  display: inline-block;
-  text-transform: capitalize;
-}
-
-.locations {
-  margin-top: 1.5rem;
   color: white;
+  font-size: 0.9rem;
 }
 
-.locations-title {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
+.pokemon-locations {
+  margin-top: 1.5rem;
+}
+
+.locations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 .location {
   background: rgba(255, 255, 255, 0.15);
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  margin: 0.3rem;
-  display: inline-block;
+  color: white;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9);
 }
