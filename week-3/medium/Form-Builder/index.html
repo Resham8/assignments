@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="empty-state">
+            <i class="fas fa-plus-circle"></i>
+            <p>Click the buttons below to add form elements</p>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <button class="tool-btn" data-type="text" data-tooltip="Add Text INput">
+            <i class="fas fa-font"></i>
+        </button>
+        <button class="tool-btn" data-type="textarea" data-tooltip="Add Textarea">
+            <i class="fas fa-paragraph"></i>
+        </button>
+        <button class="tool-btn" data-type="select" data-tooltip="Add Dropdown">
+            <i class="fas fa-caret-down"></i>
+          </button>
+          <button class="tool-btn" data-type="radio" data-tooltip="Add Radio Group">
+            <i class="fas fa-dot-circle"></i>
+          </button>
+          <button class="tool-btn" data-type="checkbox" data-tooltip="Add Checkbox Group">
+            <i class="fas fa-check-square"></i>
+          </button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
