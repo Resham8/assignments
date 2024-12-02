@@ -11,7 +11,11 @@
 */
 
 class Todo {
+    constructor(){
+      this.todos = [];
+    }
 
+    
 }
 
 module.exports = Todo;
