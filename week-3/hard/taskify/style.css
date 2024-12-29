@@ -1,0 +1,52 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: cornsilk;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.nav {
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    border: 5px solid black;
+    border-radius: 30px;
+}
+
+.nav h1, 
+.nav span, 
+.nav p {
+    margin-left: 15px;
+}
+
+.nav h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.nav span, 
+.nav p {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.boxes {
+    display: flex;
+    justify-content: space-evenly; 
+
+}
+
+.box {
+    border: 3px solid black;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 30rem;
+    width: 30%;
+}
+
+
