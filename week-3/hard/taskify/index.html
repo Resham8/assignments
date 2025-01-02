@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taskify</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
   </head>
   <body>
     <div class="container">
@@ -19,32 +21,32 @@
             <span>Inbox</span>
             <span class="task-count">0</span>
           </div>
-          <div class="add-new">+ Add Task</div>
-          <div class="task-list"></div>
+          <div class="add-new" onclick="openModal('inbox')">+ Add Task</div>
+          <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event, 'inbox')"></div>
         </div>
         <div class="box" id="in-progress">
           <div class="label">
             <span>In Progress</span>
             <span class="task-count">0</span>
           </div>
-          <div class="add-new">+ Add Task</div>
-          <div class="task-list"></div>
+          <div class="add-new" onclick="openModal('in-progress')">+ Add Task</div>
+          <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event, 'inbox')"></div>
         </div>
         <div class="box" id="under-view">
           <div class="label">
             <span>Under Review</span>
             <span class="task-count">0</span>
           </div>
-          <div class="add-new">+ Add Task</div>
-          <div class="task-list"></div>
+          <div class="add-new" onclick="openModal('under-view')">+ Add Task</div>
+          <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event, 'inbox')"></div>
         </div>
         <div class="box" id="done">
           <div class="label">
             <span>Done</span>
             <span class="task-count">0</span>
           </div>
-          <div class="add-new">+ Add Task</div>
-          <div class="task-list"></div>
+          <div class="add-new" onclick="openModal('done')">+ Add Task</div>
+          <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event, 'inbox')"></div>
         </div>
       </div>
     </div>
@@ -64,8 +66,8 @@
           <option value="high">High Priority</option>
         </select>
         <div class="modal-buttons">
-          <button class="btn btn-secondary">Cancel</button>
-          <button class="btn btn-primary">Add Task</button>
+          <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="addTask()">Add Task</button>
         </div>
       </div>
     </div>
