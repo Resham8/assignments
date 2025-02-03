@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">86.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/60</span>
+                <span class='fraction'>60/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">86.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/60</span>
+                <span class='fraction'>60/69</span>
             </div>
         
             
@@ -123,7 +123,23 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -139,7 +155,6 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -155,20 +170,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -180,57 +192,65 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">// You have to create a middleware for rate limiting a users request based on their username passed in the header
+&nbsp;
+const express = require('express');
 const app = express();
 &nbsp;
-// This object will hold the count of requests per user
+app.use(express.json())
+// Your task is to create a global middleware (app.use) which will
+// rate limit the requests from a user to only 5 request per second
+// If a user sends more than 5 requests in a single second, the server
+// should block them with a 404.
+// User will be sending in their user id in the header as 'user-id'
+// You have been given a numberOfRequestsForUser object to start off with which
+// clears every one second
+&nbsp;
 let numberOfRequestsForUser = {};
 &nbsp;
-// Store the interval ID so we can clear it in tests
 let resetInterval;
 &nbsp;
-// Middleware to rate limit based on user-id
-app.use((req, res, next) =&gt; {
-  const userId = req.header('user-id');
+app.use(function(req, res, next) {
+  const userId = req.header("user-id");
 &nbsp;
   if (!userId) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(400).json({ error: 'user-id is required' });</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(404).json({ error: "User Id is required" });</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-  const currentTime = Math.floor(Date.now() / 1000); // Current second timestamp
+  const currentTime = Math.floor(Date.now() / 1000);
 &nbsp;
-  // Initialize user data if not already present
   if (!numberOfRequestsForUser[userId]) {
-    numberOfRequestsForUser[userId] = { count: 0, lastRequestTime: currentTime };
+    numberOfRequestsForUser[userId] = {count: 0, lastRequestTime: currentTime};
   }
 &nbsp;
   const userData = numberOfRequestsForUser[userId];
 &nbsp;
-  if (currentTime === userData.lastRequestTime) {
+  if(currentTime === userData.lastRequestTime){
     userData.count += 1;
   }<span class="branch-0 cbranch-no" title="branch not covered" > else {</span>
 <span class="cstat-no" title="statement not covered" >    userData.count = 1;</span>
 <span class="cstat-no" title="statement not covered" >    userData.lastRequestTime = currentTime;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-  // Limit to 5 requests per second
-  if (userData.count &gt; 5) {
-    return res.status(404).json({ error: 'Too many requests' });
+  if (userData.count &gt; 5) { 
+    return res.status(404).json({ msg: "Rate limit exceeded" });
   }
 &nbsp;
-  // Continue to next middleware/route handler
   next();
 });
 &nbsp;
-// Reset the numberOfRequestsForUser every second
-resetInterval = setInterval(() =&gt; {
+// Reset request count every second
+setInterval(() =&gt; {
   numberOfRequestsForUser = {};
 }, 1000);
 &nbsp;
-// Routes
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
@@ -239,18 +259,22 @@ app.post('/user', function(req, res) {
 <span class="cstat-no" title="statement not covered" >  res.status(200).json({ msg: 'created dummy user' });</span>
 });
 &nbsp;
-// Expose the interval to clear it in tests
+app.get("/requestCount", function(req, res) {
+<span class="cstat-no" title="statement not covered" >  res.json({</span>
+<span class="cstat-no" title="statement not covered" >    numberOfRequestsForUser</span>
+<span class="cstat-no" title="statement not covered" >  });</span>
+});
+&nbsp;
 app.resetInterval = resetInterval;
 &nbsp;
-module.exports = app;
-&nbsp;</pre></td></tr></table></pre>
+module.exports = app;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-10T03:31:37.446Z
+                at 2025-02-03T11:48:20.372Z
             </div>
         <script src="prettify.js"></script>
         <script>
