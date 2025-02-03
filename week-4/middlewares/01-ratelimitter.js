@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json())
 // Your task is to create a global middleware (app.use) which will
 // rate limit the requests from a user to only 5 request per second
 // If a user sends more than 5 requests in a single second, the server
@@ -12,9 +13,42 @@ const app = express();
 // clears every one second
 
 let numberOfRequestsForUser = {};
+
+let resetInterval;
+
+app.use(function(req, res, next) {
+  const userId = req.header("user-id");
+
+  if (!userId) {
+    return res.status(404).json({ error: "User Id is required" });
+  }
+
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  if (!numberOfRequestsForUser[userId]) {
+    numberOfRequestsForUser[userId] = {count: 0, lastRequestTime: currentTime};
+  }
+
+  const userData = numberOfRequestsForUser[userId];
+
+  if(currentTime === userData.lastRequestTime){
+    userData.count += 1;
+  } else {
+    userData.count = 1;
+    userData.lastRequestTime = currentTime;
+  }
+
+  if (userData.count > 5) { 
+    return res.status(404).json({ msg: "Rate limit exceeded" });
+  }
+
+  next();
+});
+
+// Reset request count every second
 setInterval(() => {
-    numberOfRequestsForUser = {};
-}, 1000)
+  numberOfRequestsForUser = {};
+}, 1000);
 
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
@@ -23,5 +57,7 @@ app.get('/user', function(req, res) {
 app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+
+app.resetInterval = resetInterval;
 
 module.exports = app;
