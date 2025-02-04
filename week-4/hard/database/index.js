@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 const ObjectId = mongoose.ObjectId;
 
 // Connect to MongoDB
-const connectionString = process.env.connection-string
-mongoose.connect(connection-string);
+const connectionString = process.env.connection_string
+mongoose.connect(connectionString);
 
 // Define schemas
 

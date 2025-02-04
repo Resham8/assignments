@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const userMiddleware = require("../middleware/user");
-const { UserModal, TodoModel} = require("./database/index");
+const { User, Todo} = require("../database/index");
 const { z } = require("zod");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -14,13 +14,14 @@ router.post('/signup',async (req, res) => {
     const requiredBody = z.object({
         email: z.string().min(3).max(100).email().trim(),
         name: z.string().min(3).max(100).trim(),
-        password: z.string().min(3).max(30).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)
+        password: z.string().min(3).max(30)
+        // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)
     })
 
     const parsedDataWithSuccess = requiredBody.safeParse(req.body);
 
     if(!parsedDataWithSuccess.success){
-        res.json({
+        return res.json({
             error: parsedDataWithSuccess.error
         })
     }
@@ -29,9 +30,9 @@ router.post('/signup',async (req, res) => {
     const name = req.body.name;
     const password = req.body.password; 
 
-    const hashedPassword = bcrypt.hash(password, 5);
+    const hashedPassword = await bcrypt.hash(password, 5);
 
-    await UserModal.create({
+    await User.create({
         email: email,
         password:hashedPassword,
         name:name
@@ -47,10 +48,10 @@ router.post('/login',async (req, res) => {
      const email = req.body.email;
      const password = req.body.password;
 
-     const response = await UserModal.find({
+     const response = await User.findOne({
         email:email
      })
-
+    
      if(!response){
         res.status(404).json({
             msg:"User does not exists"
@@ -74,8 +75,16 @@ router.post('/login',async (req, res) => {
     }
 });
 
-router.get('/todos', userMiddleware, (req, res) => {
-    // Implement logic for getting todos for a user
+router.get('/todos', userMiddleware, async (req, res) => {
+    const userId = req.userId;
+
+    const todos = await Todo.find({
+        userId:userId
+    })
+
+    res.json({
+        todos
+    })
 });
 
 router.post('/logout', userMiddleware, (req, res) => {
