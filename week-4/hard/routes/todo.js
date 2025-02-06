@@ -1,77 +1,164 @@
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/user");
-const { User, Todo} = require("../database/index");
+const { User, Todo } = require("../database/index");
 const { z } = require("zod");
+const mongoose = require("mongoose");
 const router = Router();
 
+const ObjectId = mongoose.ObjectId;
+
 const todoSchema = z.object({
-    title: z.string().trim().min(3),
-    isDone: z.boolean()
-})
+  title: z.string().trim().min(3),
+  isDone: z.boolean(),
+});
 
 // todo Routes
-router.post('/', async (req, res) => {
-    const parsedData = todoSchema.safeParse(req.body);
+router.post("/", adminMiddleware, async (req, res) => {
+  const parsedData = todoSchema.safeParse(req.body);
+  const userId = req.userId;
 
-    if(!parsedData.success){
-        return res.status(400).json({
-            error: parsedData.error
-        });
-    }
+  if (!parsedData.success) {
+    return res.status(400).json({
+      error: parsedData.error,
+    });
+  }
 
-    const userId = req.userId;
-    const title = req.body.title;
-    const isDone = req.body.isDone;
-    try {
-        await Todo.create({
-            userId,
-            title,
-            isDone
-        })
-        res.json({
-            msg:"todo addes suscussfully",
-            userId:userId
-        })
-    } catch(err) {
-        console.log(err);
-        res.status(500).json({
-            error: "Internal Server Error"
-        });
-    }    
+  const title = req.body.title;
+  const isDone = req.body.isDone;
+
+  try {
+    await Todo.create({
+      userId,
+      title,
+      isDone,
+    });
+    res.json({
+      msg: "todo addes suscussfully",
+      userId: userId,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
 });
 
-router.put('/', adminMiddleware, (req, res) => {
-    // Implement update todo  logic
-});
+router.put("/:id", adminMiddleware, async (req, res) => {
+  const userId = req.userId;
+  const todoId = req.params.id;
 
-router.delete('/', adminMiddleware, (req, res) => {
-    // Implement delete todo logic
-});
+  const { title, isDone } = req.body;
+  try {
+    const existingTodo = await Todo.findOne({
+      _id: todoId,
+    });
 
-router.delete('/:id', adminMiddleware, (req, res) => {
-    // Implement delete todo by id logic
-});
+    if (existingTodo) {
+      const newTodo = {
+        title: title || existingTodo.title,
+        isDone: isDone !== undefined ? isDone : existingTodo.isDone,
+      };
 
+      const result = await Todo.updateOne({ _id: todoId }, { $set: newTodo });
 
-router.get('/', adminMiddleware, async (req, res) => {
-    const userId = req.userId;
-    console.log(userId)
-    try{
-        const todos = await Todo.find({
-            userId:userId
-        })
-
+      if (result.modifiedCount > 0) {
         res.status(200).json({
-            todos:todos
+          msg: "todo updated Successfully",
         });
-
-    } catch(err) {
-        console.log(err);
-    }        
+      }
+    } else {
+      res.status(403).json({
+        error: "todo not found ",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.get('/:id', adminMiddleware, (req, res) => {
-    // Implement fetching todo by id logic
+router.delete("/", adminMiddleware, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const result = await Todo.deleteMany({
+      userId: userId,
+    });
+
+    if (result.deletedCount === 1) {
+      res.status(200).json({
+        msg: "todos deleted Successfully",        
+      });
+      console.log(result.deletedCount);
+    } else {
+      res.status(403).json({
+        error: "todo not found",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.delete("/:id", adminMiddleware, async (req, res) => {
+  const todoId = req.params.id;
+
+  try {
+    const result = await Todo.deleteOne({
+      _id: todoId,
+    });
+
+    if (result.deletedCount === 1) {
+      res.status(200).json({
+        msg: "todo deleted Successfully",
+      });
+    } else {
+      res.status(403).json({
+        error: "todo not found ",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/", adminMiddleware, async (req, res) => {
+  const userId = req.userId;
+  
+  try {
+    const todos = await Todo.find({
+      userId: userId,
+    });
+    
+    res.status(200).json({
+      todos: todos,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/:id", adminMiddleware, async (req, res) => {
+  const userId = req.userId;
+  const todoId = req.params.id;
+
+  try {
+    const todos = await Todo.findOne({
+      _id: todoId,
+    });
+
+    if (todoId) {
+      res.status(200).json({
+        todos: todos,
+      });
+    } else {
+      res.status(403).json({
+        error: "Id not found",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
