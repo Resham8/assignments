@@ -1,23 +1,26 @@
 const mongoose = require('mongoose');
+const { z } = require('zod');
+const Schema = mongoose.Schema;
 require("dotenv").config();
-const ObjectId = mongoose.ObjectId;
 
 // Connect to MongoDB
 const connectionString = process.env.connection_string
 mongoose.connect(connectionString);
 
 // Define schemas
+const ObjectId = mongoose.ObjectId;
 
-const UserSchema = new mongoose.Schema({
-    email: String,
-    password : String,
-    name: String
+const UserSchema = new Schema({
+    name: {type: String, unique: true},
+    email:  String,
+    password : String
+    
 });
 
-const TodoSchema = new mongoose.Schema({
+const TodoSchema = new Schema({    
     title: String,
-    done: Boolean,
-    userId : ObjectId
+    isDone: Boolean,
+    userId : ObjectId    
 });
 
 const User = mongoose.model('User', UserSchema);
