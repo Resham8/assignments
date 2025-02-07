@@ -7,7 +7,7 @@ const mongoConnect = process.env.MONGO_URI;
 mongoose.connect(mongoConnect);
 
 const UserSchema = new mongoose.Schema({  
-  Username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 

@@ -45,7 +45,7 @@ router.get("/", authMiddleware, async function (req, res) {
   const userId = req.userId;
 
   try {
-    const todos = Todo.find({
+    const todos = await  Todo.find({
       userId: userId,
     });
 
@@ -60,8 +60,8 @@ router.get("/", authMiddleware, async function (req, res) {
 router.get("/:id", authMiddleware, async function (req, res) {
   const todoId = req.params.id;
   try {
-    const todo = await Todo.findById({
-      todoId,
+    const todo = await Todo.findOne({
+      _id: todoId,
     });
 
     if (!todo) {
@@ -110,6 +110,29 @@ router.put("/:id", authMiddleware, async function (req, res) {
   }
 });
 
+router.delete("/", authMiddleware, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const result = await Todo.deleteMany({
+      userId: userId,
+    });
+
+    if (result.deletedCount === 1) {
+      res.status(200).json({
+        msg: "todos deleted Successfully",        
+      });
+      console.log(result.deletedCount);
+    } else {
+      res.status(403).json({
+        error: "todo not found",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.delete("/:id", authMiddleware, async function (req, res) {
   const todoId = req.params.id;
 
@@ -132,3 +155,5 @@ router.delete("/:id", authMiddleware, async function (req, res) {
     console.log(err);
   }
 });
+
+module.exports = router;
