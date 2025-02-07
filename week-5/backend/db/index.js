@@ -6,9 +6,8 @@ const ObjectId = mongoose.ObjectId;
 const mongoConnect = process.env.MONGO_URI;
 mongoose.connect(mongoConnect);
 
-const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+const UserSchema = new mongoose.Schema({  
+  Username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
