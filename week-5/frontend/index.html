@@ -1,15 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taskify Frontend</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  </head>
+  <body>
     <div class="container">
-        
+      <div id="auth-container">
+            <form id="auth-form">
+                <h2 id="auth-title">Sign Up</h2>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="todo-input">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="todo-input">
+                <button id="register">Sign Up</button>
+            </form>
+            <p>
+                Already have an account? <a href="#" id="show-signin" data-isSignUp="true">Sign Up</a>
+            </p>
+            <p id="response-message"></p>
+        </div>
+
+      <!-- todo -->
+      <div id="todo">
+        <form id="todoForm">
+            <h2>My Tasks</h2>
+            <div class="input-group">
+                <input type="text" id="todoInput" placeholder="What needs to be done?" required>
+                <button type="submit">
+                    <i class="fas fa-plus"></i>
+                    Add
+                </button>
+            </div>
+        </form>
+
+        <ul id="todoList" class="todo-list">
+            <!-- Sample todo items -->
+            <li class="todo-item">
+                <div class="todo-content">
+                    
+                    <span class="todo-text">Design new website layout</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn edit" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </li>
+            <li class="todo-item completed">
+                <div class="todo-content">                     
+                    <span class="todo-text">Setup development environment</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn edit" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+      </div>
     </div>
-    <script src="./script.js"></script>    
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>
