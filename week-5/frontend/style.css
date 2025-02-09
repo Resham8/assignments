@@ -35,6 +35,10 @@ label, p{
   color: white;
 }
 
+a{
+  color:aliceblue
+}
+
 h2 {
   font-size: 1.8rem;
   color: white;
