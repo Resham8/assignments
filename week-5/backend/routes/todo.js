@@ -104,6 +104,8 @@ router.put("/:id", authMiddleware, async function (req, res) {
       res.status(200).json({
         msg: "Todo Updated successfully",
       });
+    } else {
+      return res.status(200).json({ msg: "No changes applied" });
     }
   } catch (error) {
     console.log(error);

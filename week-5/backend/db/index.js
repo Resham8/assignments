@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
 
 const TodoSchema = new mongoose.Schema({
     title:{type:String, required:true},
-    done:Boolean,
+    isDone:Boolean,
     userId : ObjectId
 });
 
