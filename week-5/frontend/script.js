@@ -74,7 +74,7 @@ async function saveTodo(e) {
   const title = todoInput.value;
   const isDone = false;
 
-  const body = JSON.stringify({ title, isDone });
+  const body = JSON.stringify({ title:title, isDone:isDone });
   console.log("Request Body:", body);
 
   const response = await fetch(`${todoUrl}/`, {
@@ -122,10 +122,6 @@ async function loadTodos() {
       Titlespan.setAttribute("class", "todo-text");
       Titlespan.innerHTML = todo.title;
 
-      //   if (todo.isDone) {
-      //     Titlespan.style.textDecoration = "line-through";
-      //   }
-
       contentDiv.appendChild(Titlespan);
       li.appendChild(contentDiv);
 
@@ -141,8 +137,53 @@ async function loadTodos() {
 
       editBtn.appendChild(editIcon);
       btnDiv.appendChild(editBtn);
-
-      editBtn.addEventListener("click", () => updateTodo(todo._id));
+      
+      editBtn.addEventListener("click", (e) => {  
+        e.stopPropagation();      
+        if (Titlespan.querySelector('input')) return;
+      
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = todo.title;
+        input.classList.add('inline-edit-input');
+        
+        input.addEventListener('blur', async () => {
+          const newText = input.value.trim();
+          if (newText && newText !== todo.title) {
+            try {
+              const token = localStorage.getItem("token");
+              const res = await fetch(`${todoUrl}/${todo._id}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  token: token,
+                },
+                body: JSON.stringify({ title: newText }),
+              });
+      
+              if (res.ok) {
+                loadTodos();
+              }
+            } catch (error) {
+              console.error("Failed to update todo", error);
+              Titlespan.textContent = todo.title;
+            }
+          } else {
+            Titlespan.textContent = todo.title;
+          }
+        });
+      
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            input.blur();
+          }
+        });
+      
+        Titlespan.innerHTML = '';
+        Titlespan.appendChild(input);
+        input.focus();
+      });
+      
 
       const deleteBtn = document.createElement("button");
       deleteBtn.classList.add("action-btn", "delete");
@@ -151,12 +192,15 @@ async function loadTodos() {
       const deleteIcon = document.createElement("i");
       deleteIcon.classList.add("fas", "fa-trash");
       deleteBtn.appendChild(deleteIcon);
-      deleteBtn.addEventListener("click", () => deleteTodo(todo._id));
+      deleteBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteTodo(todo._id);
+      });
 
       btnDiv.appendChild(deleteBtn);
       li.appendChild(btnDiv);
 
-      li.onclick = () => toggleTodo(todo._id, li);
+      li.addEventListener("click", () => toggleTodo(todo._id, li));
 
       todoList.appendChild(li);
     });
@@ -166,7 +210,8 @@ async function loadTodos() {
 }
 
 async function toggleTodo(id, li) {
-  let currentStatus = li.getAttribute("data-isdone") === "true";
+  try{
+    let currentStatus = li.getAttribute("data-isdone") === "true";
   let newStatus = !currentStatus;
   const token = localStorage.getItem("token");
   const res = await fetch(`${todoUrl}/${id}`, {
@@ -177,9 +222,15 @@ async function toggleTodo(id, li) {
     },
     body: JSON.stringify({ isDone: newStatus }),
   });
-  const updatedTodo = await res.json();
+  const result = await res.json();
   li.setAttribute("data-isdone", newStatus);
-  li.style.textDecoration = updatedTodo.isDone ? "line-through" : "none";
+    
+  const todoText = li.querySelector(".todo-text");
+  todoText.style.textDecoration = newStatus ? "line-through" : "none";
+  } catch(err){
+    console.error('Error in toggleTodo:', err);        
+  }
+  
 }
 
 async function updateTodo(id) {
@@ -205,7 +256,7 @@ async function updateTodo(id) {
   }
 }
 
-async function deleteTodo(id) {
+async function deleteTodo(id) {  
   const token = localStorage.getItem("token");
   const res = await fetch(`${todoUrl}/${id}`, {
     method: "DELETE",
@@ -216,7 +267,7 @@ async function deleteTodo(id) {
   });
   const result = await res.json();
   if (res.ok) {
-    alert("Todo deleted successfully");
+    alert("Are you sure you want to delete Todo.");
     loadTodos();
   }
 }
