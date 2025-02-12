@@ -31,11 +31,9 @@ export async function updateTodo(req, res, next) {
 
   const task = req.body.task;
   const done = req.body.done;
-
-  console.log(`todo : ${id}`)
+    
   const todoIndex = todos.findIndex(todo => todo.Id === parseInt(id, 10));
-
-  console.log(`todoIndex : ${todoIndex}`)
+  
   if (todoIndex !== -1) {
 
     todos[todoIndex] = {
@@ -57,7 +55,10 @@ export async function updateTodo(req, res, next) {
 export async function deleteTodoById(req, res, next) {
   const { id } = req.params;
 
-  const todoIndex = todos.findIndex(todo => todos.Id === parseInt(id));
+  // console.log(`todo : ${id}`)
+  const todoIndex = todos.findIndex(todo => todo.Id === parseInt(id, 10));
+  // console.log(`todoIndex : ${todoIndex}`)
+
   if (todoIndex !== -1) {
     todos.splice(todoIndex, 1);
     res.status(200).json({
