@@ -1,42 +1,98 @@
-
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 body {
-  /*  write here */
-  }
-    
-  .container {
-  /*  write here */
-  }
-    
-  h1 {
-  /*  write here */
-  }
-    
-  .input-container {
-  /*  write here */
-  }
-    
-  #todo-input {
-  /*  write here */
-  }
-    
-  #add-todo-btn {
-  /*  write here */
-  }
-    
-  #todo-list {
-   /*  write here */
-  }
-    
-  #todo-list li {
-  /*  write here */
-  }
-    
-  #todo-list li.completed {
-  /*  write here */
-  }
-    
-  button.delete-btn {
-  /*  write here */
-  }
-    
+  /* width: 100vw; */
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, hsla(205, 46%, 30%, 1) 0%, hsla(260, 29%, 36%, 1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background-color: #255C99;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  background: -webkit-linear-gradient(#afb2cb, #859ea3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#todo-input {
+ width: 100%;
+ border: none;
+ border-radius: 10px;
+ padding: 10px;
+ font-size: 1rem;
+ outline: white;
+ color: white;
+ font-size: 1rem;
+ background-color: #69a2e3;
+}
+
+#todo-input::placeholder{
+  color: white;
+}
+
+#todo-input:focus{
+  background-color: #57779b;
+}
+
+#add-todo-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  background-color: #e369e1;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#add-todo-btn:hover{
+  background-color: #c653c4;
+}
+
+#todo-list {
+  list-style: none;   
+}
+
+#todo-list li {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+#todo-list li.completed {
+  text-decoration: line-through;
+}
+
+button.delete-btn, button.edit-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
