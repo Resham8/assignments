@@ -2,7 +2,7 @@ let todos = []; // in memory space
 let Id = 1;
 
 export async function getAllTodo(req, res, next) {
-  res.json({ todos });
+  res.json(todos);
 }
 
 export async function createTodo(req, res, next) {
@@ -28,25 +28,22 @@ export async function createTodo(req, res, next) {
 
 export async function updateTodo(req, res, next) {
   const { id } = req.params;
+  const { task, done } = req.body;
 
-  const task = req.body.task;
-  const done = req.body.done;
-    
-  const todoIndex = todos.findIndex(todo => todo.Id === parseInt(id, 10));
-  
+  const todoIndex = todos.findIndex((todo) => todo.Id === parseInt(id, 10));
+
   if (todoIndex !== -1) {
-
     todos[todoIndex] = {
       ...todos[todoIndex],
       task: task || todos[todoIndex].task,
-      done: done || todos[todoIndex].done,
+      done: done !== undefined ? done : todos[todoIndex].done, 
     };
 
-    res.status(201).json({
-      todos: todos[todoIndex],
+    res.status(200).json({     
+      todo: todos[todoIndex],
     });
   } else {
-    res.status(400).json({
+    res.status(404).json({      
       error: "Todo not found",
     });
   }
@@ -56,7 +53,7 @@ export async function deleteTodoById(req, res, next) {
   const { id } = req.params;
 
   // console.log(`todo : ${id}`)
-  const todoIndex = todos.findIndex(todo => todo.Id === parseInt(id, 10));
+  const todoIndex = todos.findIndex((todo) => todo.Id === parseInt(id, 10));
   // console.log(`todoIndex : ${todoIndex}`)
 
   if (todoIndex !== -1) {
