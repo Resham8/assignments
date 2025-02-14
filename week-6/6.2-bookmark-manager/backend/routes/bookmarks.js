@@ -3,8 +3,8 @@ let Id = 1;
 
 export async function addBookmark(req, res, next) {
   try {
-    const { url, categoy } = req.body;
-    if (!url || !categoy) {
+    const { url, category } = req.body;
+    if (!url || !category) {
       res.json({
         error: "Url and Category required",
       });
@@ -13,7 +13,7 @@ export async function addBookmark(req, res, next) {
     const newBookmark = {
       id: Id++,
       url: url,
-      categoy: categoy,
+      category: category,
     };
 
     bookmarks.push(newBookmark);

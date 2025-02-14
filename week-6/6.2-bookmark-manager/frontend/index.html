@@ -11,12 +11,24 @@
     <h1>Bookmark Manager</h1>
 
     <div class="input-container">
-      <input type="text" id="bookmark-url" placeholder="Enter bookmark URL" />
-      <input type="text" id="bookmark-category" placeholder="Enter category" />
+      <div class="bookmark-inputs">
+        <input type="text" id="bookmark-url" class="bookmark-input" placeholder="Enter bookmark URL" />
+      <input type="text" id="bookmark-category" class="bookmark-input" placeholder="Enter category" />
+      </div>      
       <button id="add-bookmark-btn">Add Bookmark</button>
     </div>
 
-    <ul id="bookmark-list"></ul>
+    <ul id="bookmark-list">
+      <!-- <li>
+        <span>www.google.com (search)</span>
+        <div>
+          <button class="favorite-btn">
+            ⚝
+          </button>
+          <button class="delete-btn">✖️</button>
+        </div>
+      </li> -->
+    </ul>
   </div>
 
   <script src="script.js"></script>
