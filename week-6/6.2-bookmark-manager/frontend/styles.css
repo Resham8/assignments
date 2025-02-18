@@ -96,6 +96,20 @@ button.favorite-btn {
   font-size: 1.5rem;
 }
 
+.favorite-btn.favorite {
+  color: transparent;
+  position: relative;
+}
+
+.favorite-btn.favorite::after {
+  content: "⭐";
+  position: absolute;
+  
+  left: 0;
+  color: yellow;
+  font-size: 1.5rem;
+}
+
 button.delete-btn {
   background: transparent;
   border: none;

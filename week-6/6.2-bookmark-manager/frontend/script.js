@@ -33,6 +33,10 @@ function addBookmarkToDOM(bookmark) {
   const favoriteBtn = document.createElement("button");
   favoriteBtn.textContent = "⚝";
   favoriteBtn.classList.add("favorite-btn");
+  favoriteBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    favoriteBtn.classList.toggle("favorite");
+  });
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("delete-btn");
