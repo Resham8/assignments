@@ -38,12 +38,18 @@ function addTodoToDOM(todo) {
     const editButton = document.createElement("button");
     editButton.classList.add("edit-btn");
     editButton.textContent = "✏️";
-    editButton.addEventListener("click", () => editTodo(todo.Id));
+    editButton.addEventListener("click", (event) => {
+      event.stopPropagation(); 
+      editTodo(todo.Id);
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-btn");
     deleteButton.textContent = "🗑️";
-    deleteButton.addEventListener("click", () => deleteTodo(todo.Id));
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation(); 
+      deleteTodo(todo.Id);
+    });
 
     buttonDiv.appendChild(editButton);
     buttonDiv.appendChild(deleteButton);
