@@ -103,8 +103,7 @@ button.favorite-btn {
 
 .favorite-btn.favorite::after {
   content: "⭐";
-  position: absolute;
-  
+  position: absolute;  
   left: 0;
   color: yellow;
   font-size: 1.5rem;
